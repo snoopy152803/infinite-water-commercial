@@ -3,86 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EternalFlow | Infinite Hydration</title>
+    <title>AethelFlow | Infinite Hydration</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Hidden structural state for app views */
+        .app-view { display: none; }
+        .app-view.active-view { display: block; }
+    </style>
 </head>
 <body>
 
-    <!-- Shared Header Navigation -->
+    <!-- Shared Header Navigation Links -->
     <header>
-        <div class="logo">EternalFlow</div>
+        <div class="logo">AethelFlow</div>
         <nav>
-            <a href="/">Home</a>
-            <a href="/features">Features</a>
-            <a href="/pricing">Pricing</a>
-            <a href="/testimonials">Reviews</a>
-            <a href="/about">Our Alchemists</a>
+            <a href="/" class="nav-link" data-path="/">Home</a>
+            <a href="/features" class="nav-link" data-path="/features">Features</a>
+            <a href="/pricing" class="nav-link" data-path="/pricing">Pricing</a>
+            <a href="/testimonials" class="nav-link" data-path="/testimonials">Reviews</a>
+            <a href="/about" class="nav-link" data-path="/about">Our Alchemists</a>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>The Last Drop You Will Ever Need.</h1>
-            <p>Say goodbye to drought, plumbing, and logic. EternalFlow is a hand-carved obsidian chalice that manifests pure, ice-cold glacial water out of the ethereal plane. Constantly.</p>
-            <div class="hero-buttons">
-                <a href="/pricing" class="btn-primary">Claim Yours</a>
-                <a href="/features" class="btn-secondary">Explore The Lore</a>
+    <!-- Master Layout Canvas Container -->
+    <main id="view-canvas">
+        
+        <!-- View 1: Home Path -->
+        <div id="view-home" class="app-view">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>The Last Drop You Will Ever Need.</h1>
+                    <p>Say goodbye to drought, plumbing, and logic. AethelFlow is a hand-carved obsidian chalice that manifests pure, ice-cold glacial water out of the ethereal plane. Constantly.</p>
+                    <div class="hero-buttons">
+                        <a href="/pricing" class="nav-link btn-primary" data-path="/pricing">Claim Yours</a>
+                        <a href="/features" class="nav-link btn-secondary" data-path="/features">Explore The Lore</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="video-section">
+                <h2>Leaked Laptop Footage</h2>
+                <p class="subtitle">A customer tried unboxing the chalice next to their computer. Things got out of hand.</p>
+                <div class="video-container">
+                    <video controls><source src="your-commercial.mp4" type="video/mp4"></video>
+                </div>
+            </section>
+
+            <section class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">Will the infinite water flood my house?</button>
+                        <div class="faq-answer"><p>Only if you misplace it! The chalice is enchanted with spill-proof containment runes.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Does this water require an incantation?</button>
+                        <div class="faq-answer"><p>No mana required. The cosmic link is permanently anchored during the forging process.</p></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- View 2: Features Path -->
+        <div id="view-features" class="app-view">
+            <section class="sub-page-container">
+                <h1>Magical Architecture</h1>
+                <div class="features">
+                    <div class="feature-card"><h3>🌀 Infinite Supply</h3><p>Renders up to 5 litres per minute indefinitely.</p></div>
+                    <div class="feature-card"><h3>✨ Magic-Filtered</h3><p>Sourced straight from the pristine Elemental Plane.</p></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- View 3: Pricing Path -->
+        <div id="view-pricing" class="app-view">
+            <section class="sub-page-container">
+                <h1>Choose Your Vessel</h1>
+                <div class="features">
+                    <div class="feature-card"><h3>Apprentice Flask</h3><p class="price-tag">150 Gold Pieces</p><button class="btn-primary">Order Flask</button></div>
+                    <div class="feature-card"><h3>Archmage Chalice</h3><p class="price-tag">450 Gold Pieces</p><button class="btn-primary">Order Chalice</button></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- View 4: Testimonials Path -->
+        <div id="view-testimonials" class="app-view">
+            <section class="sub-page-container">
+                <h1>Endorsed Across Realms</h1>
+                <div class="features">
+                    <div class="feature-card"><p>"I haven't paid a copper coin to the local water grid since the Second Age."</p><h3>— Elrond M.</h3></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- View 5: About Path -->
+        <div id="view-about" class="app-view">
+            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto;">
+                <h1>Our Alchemical Mission</h1>
+                <p>We construct micro-bridges across time and space to tap into high-pressure elemental zones.</p>
+            </section>
+        </div>
+
+        <!-- View 6: Terms Path -->
+        <div id="view-terms" class="app-view">
+            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto; text-align: left;">
+                <h1>Terms of Sorcery</h1>
+                <h3>1. License to Hydrate</h3>
+                <p>Users strictly agree NOT to attempt to modify the internal wormhole geometry to draw liquid magma.</p>
+            </section>
+        </div>
+
+        <!-- View 7: Privacy Path -->
+        <div id="view-privacy" class="app-view">
+            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto; text-align: left;">
+                <h1>Privacy Policy</h1>
+                <h3>1. Information We Collect</h3>
+                <p>We collect basic mortal data required to ship your physical vessel. We do not harvest your personal aura.</p>
+            </section>
+        </div>
+
+        <!-- View 8: Fallback / 404 Dashboard View -->
+        <div id="view-404" class="app-view">
+            <div style="text-align:center; padding: 150px 20px;">
+                <h1 style="font-size: 5rem; color: #ff3366;">ERROR 404</h1>
+                <h2>Runic Pathway Broken</h2>
+                <p style="margin: 20px 0 40px; color:#9ca3af;">The portal collapsed. Other known server anomalies include 301 (Permanent Redirection) and 500 (Alchemical Meltdown).</p>
+                <a href="/" class="nav-link btn-primary" data-path="/">Return Home</a>
             </div>
         </div>
-    </section>
 
-    <!-- Laptop Commercial Video Section -->
-    <section class="video-section">
-        <h2>Leaked Laptop Footage</h2>
-        <p class="subtitle">A customer tried unboxing the chalice next to their computer. Things got out of hand.</p>
-        <div class="video-container">
-            <video controls>
-                <source src="your-commercial.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+    </main>
+
+    <!-- Final Clean Legal Footer Content Links -->
+    <footer style="text-align: center; padding: 45px 20px; color: #4b5563; border-top: 1px solid #1f2937; font-size: 0.85rem; background-color: #0b0f19;">
+        <p style="margin-bottom: 10px;">&copy; 2026 AethelFlow Inc. All Rights Reserved.</p>
+        <div class="footer-legal-links">
+            <a href="/terms" class="nav-link legal-link" data-path="/terms" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Terms of Sorcery</a> | 
+            <a href="/privacy" class="nav-link legal-link" data-path="/privacy" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
         </div>
-    </section>
-
-    <!-- Interactive FAQ Section -->
-    <section class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <button class="faq-question">Will the infinite water flood my house?</button>
-                <div class="faq-answer">
-                    <p>Only if you misplace it! The chalice is enchanted with spill-proof containment runes. Water only flows when you intend to pour it. If you drop it while it's active, please consult a high-level sorcerer immediately.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Does this water require an incantation or mana?</button>
-                <div class="faq-answer">
-                    <p>No mana required. The cosmic link is permanently anchored to the Aquarian Realm during the forging process, providing a constant baseline flow effortlessly.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Is the water safe for mortal consumption?</p>
-                <div class="faq-answer">
-                    <p>Absolutely. It is micro-filtered directly through elemental barriers, removing all heavy metals, toxins, and impurities. It tastes exactly like a pristine glacial mountain spring.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 EternalFlow Inc. | <a href="/terms" style="color: #4b5563; text-decoration: none;">Terms of Sorcery</a> | <a href="/privacy" style="color: #4b5563; text-decoration: none;">Privacy Policy</a></p>
     </footer>
 
-    <!-- Script to make the FAQ toggle expand and collapse -->
+    <!-- Client-Side Routing Javascript Script Logic Engine -->
     <script>
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                item.classList.toggle('active');
-            });
-        });
-    </script>
+        // Dictionary linking paths to view structural elements
+        const routes = {
+            '/': 'view-home',
+            '/features': 'view-features',
+            '/pricing': 'view-pricing',
+            '/testimonials': 'view-testimonials',
+            '/about': 'view-about',
+            '/terms': 'view-terms',
+            '/privacy': 'view-privacy'
+        };
 
+        function router() {
+            const path = window.location.pathname;
+            const targetViewId = routes[path] || 'view-404';
+            
+            // Hide all structural views safely
+            document.querySelectorAll('.app-view').forEach(view => {
+                view.classList.remove('active-view');
+            });
+
+            // Activate specific selected route layout
+            document.getElementById(targetViewId).classList.add('active-view');
+            window.scrollTo(0, 0);
+        }
+
+        // Bind interception listeners to every custom single layout router anchor link
+        document.body.addEventListener('click', e => {
+            const targetLink = e.target.closest('.nav-link');
+            if (targetLink) {
+                e.preventDefault();
+                const newPath = targetLink.getAttribute('data-path');
+                window.history.pushState({}, '', newPath);
+                router();
+            }
+        });
+
+        // Toggle state rules component for FAQ layout section accordion items
+        document.body.addEventListener('click', e => {
+            if (e.target.classList.contains('faq-question')) {
+                e.target.parentElement.classList.toggle('active');
+            }
+        });
+
+        // Capture client window browser movement histories
+        window.addEventListener('popstate', router);
+        window.addEventListener('DOMContentLoaded', router);
+    </script>
 </body>
 </html>
