@@ -1,168 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiny Home! 67</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <!-- This connects your index.html to your external style.css file -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AethelFlow | Infinite Hydration</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button class="open-btn" onclick="toggleForm()">Email Me</button>
-  <div class="modal-overlay" id="contactModal">
-  <div class="form-box">
-    <button class="close-btn" onclick="toggleForm()">✕</button>
-    <h3>Send a Message</h3>
-    
-    <!-- Replace 'YOUR_FORM_ID' with your actual free service ID later -->
-    <form action="https://formspree.io/f/mrpzgywq" method="POST">
-      <label>Your Email:</label>
-      <input type="email" name="email" required>
-      
-      <label>Message:</label>
-      <textarea name="message" rows="4" required></textarea>
-      
-      <button type="submit" class="open-btn">Send</button>
-    </form>
-  </div>
-</div>
-  <h1>Sustainable Tiny Home</h1>
-  <p>A tiny home is a very small, compact, self-contained dwelling often ranging from 10 to 50 square metres.</p>
-  
-  <h2>My Client</h2>
-  <p>My tiny home is designed for a retired gardener, Uncle Ray, to live independently in a warm country town in Queensland. This client needs a safe, affordable, eco-friendly, and accessible home. They need somewhere to live, sleep, relax, tend to their gardens, cook, and store their belongings. The tiny home is situated near a community garden, giving Uncle Ray an opportunity to nuture his gardening hobby.</p>
 
-  <h2>Challenges</h2>
-  <p>One challenge is that the space allocated is very small, and a wheelchair-bound person can get around easily without any tight corners or small gaps. My design helps by having large doorways, wide corridors, built-in storage, and a simple square layout that has a L-shaped shipping container plus a 2.5m x 2m garden to fulfill Uncle Ray's gardening hobbies.</p>
-  <div class="image-container">
-    <img src="Figure_1_FloorPlan.png" alt="Figure 1: Floorplan">
-    <div class="image-caption">Figure 1: Architectural 20.68 m² studio floor plan layout optimizing accessibility and workflow.</div>
-  </div>
-  <h2>My Design</h2>
-  <p>My tiny home is made from a reused 20ft shipping container, plus an 8ft for the shorter L-shaped section.
-     Because the container is almost square, including the place where Uncle Ray can grow his plants in the vertical garden.
-     Where possible, I added storage and used some unconventional techniques to maximise storage and living area while minimising space.
-     One example of this is a sofa bed, a classic choice. By day, a comfy spot to relax. By night, it pulls out into a bed. On the floorplan, I have made it into a bed as Uncle Ray already might have a wheelchair to sit in.
-     Also not shown on the floorplan, above the stovce in the kitchen, there are hanging pegs to put pots, pans, cutlery etc when not in use. This saves space because otherwise, I would have to make a seperate area to put all the utensils.
-     By eliminating the shower lip entirely, the shower serves as a wheelchair turning zone when not in use, given the narrow walkways that are wide enough to accommodate wheelchair one-way but might not be enough to allow a wheelchair to turn.
-     Finally, a shelf that is 114.3 cm (45in) high allows stuff to be easily reached from a wheelchair. This keeps stuff off the counter while keeping them in easy arms-length reach.
-     The kitchen includes a 4-burner cooktop, a pantry, small oven, dishwasher, fridge, washing machine, and high and low cabinets. There are wide windows with shade to cover at night and let in natural light by day.
-  </p>
-  <h2>Technical Specifications</h2>
-  <p>The following engineering matrix outlines the specific building dimensions derived directly from the blueprint metrics:</p>
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">AethelFlow</div>
+        <nav>
+            <a href="#lore">The Lore</a>
+            <a href="#video">The Commercial</a>
+            <a href="#features">Features</a>
+            <button class="cta-nav">Claim Yours</button>
+        </nav>
+    </header>
 
-  <table class="tech-table">
-    <thead>
-      <tr>
-        <th>Structural Element</th>
-        <th>Blueprint Dimension (cm)</th>
-        <th>Function / Justification (why is it there?)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Total Internal Area</strong></td>
-        <td>20.68 m²</td>
-        <td>Compact space optimization tracking living, kitchen, and sleeping paths.</td>
-      </tr>
-      <tr>
-        <td><strong>Outer Dimensions</strong></td>
-        <td>479 cm &times; 479 cm</td>
-        <td>Symmetrical square perimeter shell to balance insulation loads uniformly.</td>
-      </tr>
-      <tr>
-        <td><strong>Structural Wall Thickness</strong></td>
-        <td>37 cm</td>
-        <td>High-thermal mass wall zone preventing heat transfer in warm climates.</td>
-      </tr>
-      <tr>
-        <td><strong>Main Entry Clearance</strong></td>
-        <td>945 cm (Width)</td>
-        <td>Accessible wide structural rough opening engineered for clean wheelchair layout.</td>
-      </tr>
-      <tr>
-        <td><strong>Kitchen Counter run</strong></td>
-        <td>200 cm (L-Shape)</td>
-        <td>Integrates Dishwasher (DW), cooktop elements, and ergonomic workflow zones.</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Last Drop You Will Ever Need.</h1>
+            <p>Say goodbye to drought, plumbing, and logic. AethelFlow is a hand-carved obsidian chalice that manifests pure, ice-cold glacial water out of the ethereal plane. Constantly.</p>
+            <div class="hero-buttons">
+                <a href="#video" class="btn-secondary">Watch the Video</a>
+                <button class="btn-primary">Order Now (No Mana Required)</button>
+            </div>
+        </div>
+    </section>
 
-  <div class="scale-container">
-    <div class="scale-box">
-      <strong>📐 1:20 Scale Model Formula</strong><br>
-      Divide actual blueprint sizes by 20 to build a detailed, larger display unit:
-      <ul style="margin: 5px 0 0 20px; padding: 0; text-align: left; display: block;">
-        <li>Outer frame: <strong>23.95 cm</strong></li>
-        <li>Wall thickness: <strong>1.85 cm</strong></li>
-        <li>Main door width: <strong>47.25 cm</strong></li>
-      </ul>
-    </div>
-    <div class="scale-box alt">
-      <strong>📐 1:50 Scale Model Formula</strong><br>
-      Divide actual blueprint sizes by 50 to build a compact, pocket portfolio unit:
-      <ul style="margin: 5px 0 0 20px; padding: 0; text-align: left; display: block;">
-        <li>Outer frame: <strong>9.58 cm</strong></li>
-        <li>Wall thickness: <strong>0.74 cm</strong> (7.4 mm)</li>
-        <li>Main door width: <strong>18.90 cm</strong></li>
-      </ul>
-    </div>
-  </div>
+    <!-- Video Commercial Section -->
+    <section id="video" class="video-section">
+        <h2>Leaked Laptop Footage</h2>
+        <p class="subtitle">A customer tried unboxing the chalice next to their computer. Things got out of hand.</p>
+        <div class="video-container">
+            <!-- REPLACE 'your-commercial.mp4' WITH YOUR ACTUAL VIDEO FILE PATH -->
+            <video controls poster="placeholder-thumb.jpg">
+                <source src="your-commercial.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
 
-  <div class="info-box">
-    <h3>Spatial Optimization & Layout Improvements</h3>
-    <p>While maintaining the strict <strong>20.68 m² interior footprint</strong>, the floor plan flow can be advanced with these key accessibility improvements:</p>
-    <ul>
-      <li><strong>Universal Turning Radius:</strong> Reorienting the kitchen counter layout expands the entry core, offering a completely open central turning circle for a walker or wheelchair. This ensures Uncle Ray can navigate the primary food preparation zones safely and without tight constraints.</li>
-      <li><strong>Curbless Wet Room Bathroom:</strong> Transitioning the enclosed bathroom design into a step-free wet room removes tripping thresholds and guarantees effortless transitions. It features integrated grab rails and a wide pocket sliding door for smooth lateral clearance.</li>
-      <li><strong>Dual-Side Bed Clearance:</strong> Shifting the mattress layout slightly off the corner walls preserves clear pathways on both sides. This optimization makes routine tasks like changing linen straightforward and leaves ample space for assistive support frames if needed.</li>
-      <li><strong>Ergonomic Low-Counter Reach:</strong> Lowering portions of the living and storage shelves down to a maximum height of 120 cm places daily essentials within arm's reach, reducing back strain and fall hazards for independent elderly living.</li>
-    </ul>
-  </div>
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="feature-card">
+            <h3>🌀 Infinite Supply</h3>
+            <p>Renders 5 litres per minute, indefinitely, bypassing local utility grids completely.</p>
+        </div>
+        <div class="feature-card">
+            <h3>✨ Magic-Filtered</h3>
+            <p>Sourced directly from the Elemental Plane of Water. Zero impurities. Zero heavy metals.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔒 Spill-Proof</h3>
+            <p>Enchanted runes ensure water only flows when you intend to drink or pour.</p>
+        </div>
+    </section>
 
-  <div class="info-box" style="background-color: #f7f9f7; border-color: #d8e2d8;">
-    <h3>Sustainability & Resource Management</h3>
-    <p>The tiny home integrates environmentally conscious active and passive infrastructure to ensure self-sufficiency in a warm country climate:</p>
-    <ul>
-      <li><strong>Closed-Loop Waste System:</strong> A specialized composting toilet breaks down organic matter safely, eliminating heavy blackwater sewage plumbing and generating rich, chemical-free soil fertilizer. This organic byproduct directly nourishes Uncle Ray's food crops and vertical garden layers.</li>
-      <li><strong>Rainwater Harvesting Matrix:</strong> Structural roof drainage channels runoff straight into an outdoor storage tank, securing independent off-grid irrigation for the gardens. This closed collection process buffers seasonal regional droughts and significantly cuts down utility water bills.</li>
-      <li><strong>Passive Thermal Mass Envelope:</strong> Wall insulation makes sure that Uncle Ray's tiny home does not vary too wildly in cold and warm, keeping in warm air in winter and keeping in cold air in summer.</li>
-      <li><strong>Electricity Generating Solar Panels</strong> Sustainably generating electricity, while not using fossil fuels in the process. With a solar battery, it stores electricity to use at night for lights.</li>
-      <li><strong>Sustainable Grey-water System<strong>Wastewater from showers and sinks go underground into a tank, reused by watering Uncle Ray's crops. It means that no water gets wasted, so that Uncle Ray doesn't have to pay as much for water.</li>
-    </ul>
-  </div>
+    <!-- Lore Section -->
+    <section id="lore" class="lore">
+        <h2>How Does It Work?</h2>
+        <p>AethelFlow does not create water; it relocates it. Utilizing a stable, localized micro-wormhole anchored to the pristine springs of the Aquarian Realm, the chalice pulls moisture across dimensions. It is sustainable, magical, and highly disruptive.</p>
+    </section>
 
-  <h2>Materials & DIY Construction</h2>
-  <p>To bring the architectural floor plan to life, a physical scale model will be constructed using the following DIY craft materials:</p>
-  
-  <ul>
-    <li><strong>Thick Corrugated Cardboard:</strong> Used to construct structural outer walls and the foundation base slab, cut cleanly according to your chosen scale dimensions.</li>
-    <li><strong>Paddle-Pop Sticks:</strong> Laid down side-by-side to fabricate Uncle Ray's timber shaded deck, external seating, and custom herb planters.</li>
-    <li><strong>High-Temp Glue Gun:</strong> Used for fast, rigid bonding across complex structural wall intersections and fragile miniature furniture blocks.</li>
-    <li><strong>Recycled Objects & Media:</strong> Cylindrical plastic caps represent the rainwater harvesting tank, while wooden matches construct the vertical garden frame posts.</li>
-  </ul>
-  <h2>Photos</h2>
-  <p>Here are some photos from the construction process.</p>
-  <div class="image-container">
-    <img src="ConstructionImages/Figure_2_Image1.jpg" alt="Figure 2: Image 1">
-  </div>
-    <div class="image-container">
-    <img src="ConstructionImages/Figure_3_Image2.jpg" alt="Figure 3: Image 2">
-  </div>
-    <div class="image-container">
-    <img src="ConstructionImages/Figure_4_Image3.jpg" alt="Figure 4: Image 3">
-  </div>
-    <div class="image-container">
-    <img src="ConstructionImages/Figure_5_Image4.jpg" alt="Figure 5: Image 4">
-  </div>
-  <footer class="made-by-me">
-    Made by Ray Song from 6DB
-  </footer>
-  <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
-  <script src="script.js" defer></script>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AethelFlow Inc. | Terms of Sorcery | Privacy Policy</p>
+    </footer>
+
 </body>
 </html>
