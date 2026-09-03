@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EternalFlow | Infinite Hydration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Shared Header Navigation -->
+    <header>
+        <div class="logo">EternalFlow</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/features">Features</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/testimonials">Reviews</a>
+            <a href="/about">Our Alchemists</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Last Drop You Will Ever Need.</h1>
+            <p>Say goodbye to drought, plumbing, and logic. EternalFlow is a hand-carved obsidian chalice that manifests pure, ice-cold glacial water out of the ethereal plane. Constantly.</p>
+            <div class="hero-buttons">
+                <a href="/pricing" class="btn-primary">Claim Yours</a>
+                <a href="/features" class="btn-secondary">Explore The Lore</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Laptop Commercial Video Section -->
+    <section class="video-section">
+        <h2>Leaked Laptop Footage</h2>
+        <p class="subtitle">A customer tried unboxing the chalice next to their computer. Things got out of hand.</p>
+        <div class="video-container">
+            <video controls>
+                <source src="your-commercial.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <!-- Interactive FAQ Section -->
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">Will the infinite water flood my house?</button>
+                <div class="faq-answer">
+                    <p>Only if you misplace it! The chalice is enchanted with spill-proof containment runes. Water only flows when you intend to pour it. If you drop it while it's active, please consult a high-level sorcerer immediately.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Does this water require an incantation or mana?</button>
+                <div class="faq-answer">
+                    <p>No mana required. The cosmic link is permanently anchored to the Aquarian Realm during the forging process, providing a constant baseline flow effortlessly.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Is the water safe for mortal consumption?</p>
+                <div class="faq-answer">
+                    <p>Absolutely. It is micro-filtered directly through elemental barriers, removing all heavy metals, toxins, and impurities. It tastes exactly like a pristine glacial mountain spring.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 EternalFlow Inc. | Terms of Sorcery | Privacy Policy</p>
+    </footer>
+
+    <!-- Script to make the FAQ toggle expand and collapse -->
+    <script>
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
