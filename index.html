@@ -1,196 +1,499 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EternalFlow | Infinite Hydration</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Hidden structural state for app views */
-        .app-view { display: none; }
-        .app-view.active-view { display: block; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EternalFlow | Infinite Hydration</title>
+<style>
+  :root{
+    --bg:#0b0f19;
+    --bg-alt:#0d1321;
+    --panel:#111827;
+    --line:#1f2937;
+    --cyan:#00d4ff;
+    --blue:#0072ff;
+    --text:#f3f4f6;
+    --muted:#9ca3af;
+    --danger:#ff3366;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  img,video{max-width:100%;}
+
+  /* ---------- Header / Nav ---------- */
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 5%;
+    background-color:rgba(11,15,25,0.85);
+    backdrop-filter:blur(10px);
+    position:fixed;width:100%;top:0;z-index:100;
+    border-bottom:1px solid rgba(0,212,255,0.1);
+  }
+  .logo{
+    display:flex;align-items:center;gap:8px;
+    font-size:1.4rem;font-weight:bold;color:var(--cyan);
+    text-shadow:0 0 10px rgba(0,212,255,0.4);
+    cursor:pointer;background:none;border:none;font-family:inherit;
+  }
+  .logo svg{flex-shrink:0;}
+  nav{display:flex;align-items:center;}
+  nav ul{display:flex;list-style:none;gap:8px;margin:0;padding:0;}
+  nav a{
+    display:inline-block;
+    color:var(--muted);text-decoration:none;
+    padding:8px 14px;border-radius:20px;
+    font-size:0.95rem;transition:color .25s ease, background .25s ease;
+    position:relative;
+  }
+  nav a:hover{color:var(--cyan);}
+  nav a.active{color:var(--cyan);background:rgba(0,212,255,0.08);}
+  nav a:focus-visible, .logo:focus-visible, button:focus-visible{
+    outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px;
+  }
+  .menu-toggle{
+    display:none;background:none;border:1px solid var(--line);
+    color:var(--text);border-radius:8px;width:40px;height:40px;
+    cursor:pointer;font-size:1.1rem;
+  }
+  @media (max-width:860px){
+    .menu-toggle{display:block;}
+    nav{
+      position:fixed;top:64px;left:0;right:0;
+      background:var(--bg-alt);border-bottom:1px solid var(--line);
+      max-height:0;overflow:hidden;transition:max-height .3s ease;
+    }
+    nav.open{max-height:400px;}
+    nav ul{flex-direction:column;gap:0;padding:10px 5% 20px;}
+    nav a{display:block;padding:14px 10px;border-radius:0;border-bottom:1px solid var(--line);}
+  }
+
+  main{padding-top:0;}
+  .app-view{display:none;}
+  .app-view.active-view{display:block;animation:fadeIn .35s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion:reduce){
+    .app-view.active-view{animation:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:90vh;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:140px 20px 80px;
+    background:radial-gradient(circle at center, #111c35 0%, #0b0f19 70%);
+  }
+  .hero-content{max-width:750px;}
+  .hero h1{
+    font-size:clamp(2.2rem,5vw,3.5rem);margin-bottom:20px;line-height:1.15;
+    background:linear-gradient(to right,#ffffff,var(--cyan));
+    background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .hero p{font-size:1.15rem;color:var(--muted);margin-bottom:40px;}
+  .hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;}
+
+  .btn{
+    padding:14px 28px;font-size:1rem;font-weight:bold;border-radius:30px;
+    cursor:pointer;text-decoration:none;transition:all .3s ease;
+    display:inline-block;border:none;font-family:inherit;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--blue), var(--cyan));
+    color:#fff;box-shadow:0 4px 15px rgba(0,212,255,0.3);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,212,255,0.5);}
+  .btn-secondary{background:transparent;color:var(--cyan);border:2px solid var(--cyan);}
+  .btn-secondary:hover{background:rgba(0,212,255,0.08);}
+
+  /* ---------- Video section ---------- */
+  .video-section{padding:80px 5%;text-align:center;background-color:var(--bg-alt);}
+  .video-section h2{font-size:2.2rem;margin-bottom:10px;}
+  .subtitle{color:var(--muted);margin-bottom:40px;}
+  .video-container{
+    position:relative;max-width:750px;margin:0 auto;
+    border:3px solid var(--line);border-radius:12px;overflow:hidden;
+    background-color:#000;box-shadow:0 20px 40px rgba(0,0,0,0.5);
+    aspect-ratio:16/9;
+  }
+  .video-placeholder{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:16px;
+    background:linear-gradient(160deg,#0d1626,#000);
+  }
+  .video-placeholder .play-btn{
+    width:66px;height:66px;border-radius:50%;
+    border:2px solid var(--cyan);background:rgba(0,212,255,0.08);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .video-placeholder .play-btn:hover{background:rgba(0,212,255,0.18);transform:scale(1.05);}
+  .video-placeholder .play-btn::after{
+    content:"";border-style:solid;border-width:10px 0 10px 16px;
+    border-color:transparent transparent transparent var(--cyan);margin-left:4px;
+  }
+  .video-placeholder span{color:var(--muted);font-size:0.9rem;}
+  video{width:100%;height:100%;display:block;position:relative;z-index:1;}
+  .video-note{margin-top:16px;color:var(--muted);font-size:0.85rem;}
+
+  /* ---------- FAQ ---------- */
+  .faq-section{padding:80px 5%;background-color:var(--bg);text-align:center;}
+  .faq-section h2{font-size:2.2rem;margin-bottom:40px;}
+  .faq-container{max-width:700px;margin:0 auto;text-align:left;}
+  .faq-item{border-bottom:1px solid var(--line);padding:15px 0;}
+  .faq-question{
+    width:100%;background:none;border:none;color:var(--text);text-align:left;
+    font-size:1.1rem;font-weight:600;padding:10px 0;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+  }
+  .faq-question::after{content:'+';color:var(--cyan);font-size:1.4rem;flex-shrink:0;}
+  .faq-item.active .faq-question::after{content:'\2212';}
+  .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease-out;}
+  .faq-item.active .faq-answer{max-height:220px;}
+  .faq-answer p{color:var(--muted);padding:10px 0 20px;font-size:0.95rem;}
+
+  /* ---------- Sub pages ---------- */
+  .sub-page-container{padding:160px 5% 80px;text-align:center;}
+  .sub-page-container h1{font-size:2.6rem;margin-bottom:15px;color:#fff;}
+  .sub-page-container > p{color:var(--muted);max-width:640px;margin:0 auto;}
+
+  .features{display:flex;justify-content:center;flex-wrap:wrap;gap:30px;padding-top:40px;}
+  .feature-card{
+    background-color:var(--panel);border:1px solid var(--line);
+    padding:36px 28px;border-radius:15px;width:300px;text-align:left;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .feature-card:hover{transform:translateY(-5px);border-color:var(--cyan);}
+  .feature-card h3{margin-bottom:12px;color:#fff;}
+  .feature-card p{color:var(--muted);font-size:0.95rem;}
+  .price-tag{font-size:1.5rem;color:var(--cyan);margin:14px 0;font-weight:bold;}
+
+  .legal-page{max-width:760px;margin:0 auto;text-align:left;}
+  .legal-page h3{margin-top:28px;margin-bottom:8px;color:#fff;}
+  .legal-page p{color:var(--muted);}
+
+  /* ---------- 404 ---------- */
+  .error-box{text-align:center;padding:150px 20px 100px;}
+  .error-box h1{font-size:4.5rem;color:var(--danger);text-shadow:0 0 20px rgba(255,51,102,0.3);}
+  .error-box h2{margin-top:10px;}
+  .error-box p{margin:20px auto 20px;color:var(--muted);max-width:520px;}
+  .error-codes{
+    list-style:none;max-width:480px;margin:0 auto 40px;
+    text-align:left;border-top:1px solid var(--line);
+  }
+  .error-codes li{padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:0.92rem;}
+  .error-codes strong{color:var(--text);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    text-align:center;padding:45px 20px;color:#4b5563;
+    border-top:1px solid var(--line);font-size:0.85rem;background-color:var(--bg);
+  }
+  footer p{margin-bottom:12px;}
+  .footer-legal-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;}
+  .footer-legal-links a{
+    color:var(--muted);text-decoration:none;transition:color .2s ease;
+  }
+  .footer-legal-links a:hover{color:var(--cyan);}
+
+  @media (max-width:768px){
+    .hero-buttons{flex-direction:column;align-items:center;}
+    .btn{width:100%;max-width:300px;}
+    .sub-page-container{padding-top:180px;}
+  }
+</style>
 </head>
 <body>
 
-    <!-- Shared Header Navigation Links -->
-    <header>
-        <div class="logo">EternalFlow</div>
-        <nav>
-            <a href="/" class="nav-link" data-path="/">Home</a>
-            <a href="/features" class="nav-link" data-path="/features">Features</a>
-            <a href="/pricing" class="nav-link" data-path="/pricing">Pricing</a>
-            <a href="/testimonials" class="nav-link" data-path="/testimonials">Reviews</a>
-            <a href="/about" class="nav-link" data-path="/about">Our Alchemists</a>
-        </nav>
-    </header>
+<header>
+  <button class="logo nav-link" data-path="/" aria-label="EternalFlow home">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2C12 2 5 11 5 15.5C5 19.09 8.13 22 12 22C15.87 22 19 19.09 19 15.5C19 11 12 2 12 2Z" stroke="#00d4ff" stroke-width="1.4"/>
+    </svg>
+    EternalFlow
+  </button>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  <nav id="siteNav">
+    <ul>
+      <li><a href="/" class="nav-link" data-path="/">Home</a></li>
+      <li><a href="/features" class="nav-link" data-path="/features">Features</a></li>
+      <li><a href="/pricing" class="nav-link" data-path="/pricing">Pricing</a></li>
+      <li><a href="/testimonials" class="nav-link" data-path="/testimonials">Reviews</a></li>
+      <li><a href="/about" class="nav-link" data-path="/about">Our Alchemists</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <!-- Master Layout Canvas Container -->
-    <main id="view-canvas">
-        
-        <!-- View 1: Home Path -->
-        <div id="view-home" class="app-view">
-            <section class="hero">
-                <div class="hero-content">
-                    <h1>The Last Drop You Will Ever Need.</h1>
-                    <p>Say goodbye to drought, plumbing, and logic. EternalFlow is a hand-carved obsidian chalice that manifests pure, ice-cold glacial water out of the ethereal plane. Constantly.</p>
-                    <div class="hero-buttons">
-                        <a href="/pricing" class="nav-link btn-primary" data-path="/pricing">Claim Yours</a>
-                        <a href="/features" class="nav-link btn-secondary" data-path="/features">Explore The Lore</a>
-                    </div>
-                </div>
-            </section>
+<main id="view-canvas">
 
-            <section class="video-section">
-                <h2>Leaked Laptop Footage</h2>
-                <p class="subtitle">A customer tried unboxing the chalice next to their computer. Things got out of hand.</p>
-                <div class="video-container">
-                    <video controls><source src="your-commercial.mp4" type="video/mp4"></video>
-                </div>
-            </section>
-
-            <section class="faq-section">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <button class="faq-question">Will the infinite water flood my house?</button>
-                        <div class="faq-answer"><p>Only if you misplace it! The chalice is enchanted with spill-proof containment runes.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">Does this water require an incantation?</button>
-                        <div class="faq-answer"><p>No mana required. The cosmic link is permanently anchored during the forging process.</p></div>
-                    </div>
-                </div>
-            </section>
+  <!-- HOME -->
+  <div id="view-home" class="app-view">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>The Last Drop You Will Ever Need.</h1>
+        <p>Say goodbye to drought, plumbing, and logic. EternalFlow is a hand-carved obsidian chalice that manifests pure, ice-cold glacial water out of the ethereal plane. Constantly.</p>
+        <div class="hero-buttons">
+          <a href="/pricing" class="nav-link btn btn-primary" data-path="/pricing">Claim Yours</a>
+          <a href="/features" class="nav-link btn btn-secondary" data-path="/features">Explore The Lore</a>
         </div>
+      </div>
+    </section>
 
-        <!-- View 2: Features Path -->
-        <div id="view-features" class="app-view">
-            <section class="sub-page-container">
-                <h1>Magical Architecture</h1>
-                <div class="features">
-                    <div class="feature-card"><h3>🌀 Infinite Supply</h3><p>Renders up to 5 litres per minute indefinitely.</p></div>
-                    <div class="feature-card"><h3>✨ Magic-Filtered</h3><p>Sourced straight from the pristine Elemental Plane.</p></div>
-                </div>
-            </section>
+    <section class="video-section">
+      <h2>Leaked Laptop Footage</h2>
+      <p class="subtitle">A customer tried unboxing the chalice next to their computer. Things got out of hand.</p>
+      <div class="video-container">
+        <video controls poster="" preload="none">
+          <source src="your-commercial.mp4" type="video/mp4">
+        </video>
+        <div class="video-placeholder" id="videoPlaceholder">
+          <button class="play-btn" id="playPlaceholder" aria-label="Play commercial (placeholder — no video file attached yet)"></button>
+          <span>Commercial footage coming soon</span>
         </div>
+      </div>
+      <p class="video-note">Placeholder: swap <code>your-commercial.mp4</code> for the real laptop-camera commercial once filmed.</p>
+    </section>
 
-        <!-- View 3: Pricing Path -->
-        <div id="view-pricing" class="app-view">
-            <section class="sub-page-container">
-                <h1>Choose Your Vessel</h1>
-                <div class="features">
-                    <div class="feature-card"><h3>Apprentice Flask</h3><p class="price-tag">150 Gold Pieces</p><button class="btn-primary">Order Flask</button></div>
-                    <div class="feature-card"><h3>Archmage Chalice</h3><p class="price-tag">450 Gold Pieces</p><button class="btn-primary">Order Chalice</button></div>
-                </div>
-            </section>
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Will the infinite water flood my house?</button>
+          <div class="faq-answer"><p>Only if you misplace it! The chalice is enchanted with spill-proof containment runes.</p></div>
         </div>
-
-        <!-- View 4: Testimonials Path -->
-        <div id="view-testimonials" class="app-view">
-            <section class="sub-page-container">
-                <h1>Endorsed Across Realms</h1>
-                <div class="features">
-                    <div class="feature-card"><p>"I haven't paid a copper coin to the local water grid since the Second Age."</p><h3>— Elrond M.</h3></div>
-                </div>
-            </section>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Does this water require an incantation?</button>
+          <div class="faq-answer"><p>No mana required. The cosmic link is permanently anchored during the forging process.</p></div>
         </div>
-
-        <!-- View 5: About Path -->
-        <div id="view-about" class="app-view">
-            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto;">
-                <h1>Our Alchemical Mission</h1>
-                <p>We construct micro-bridges across time and space to tap into high-pressure elemental zones.</p>
-            </section>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Is the water safe to drink?</button>
+          <div class="faq-answer"><p>Every drop is filtered through the Elemental Plane's own membranes before it reaches your cup — cleaner than most tap water.</p></div>
         </div>
-
-        <!-- View 6: Terms Path -->
-        <div id="view-terms" class="app-view">
-            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto; text-align: left;">
-                <h1>Terms of Sorcery</h1>
-                <h3>1. License to Hydrate</h3>
-                <p>Users strictly agree NOT to attempt to modify the internal wormhole geometry to draw liquid magma.</p>
-            </section>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What if I lose the chalice?</button>
+          <div class="faq-answer"><p>The cosmic bridge follows the vessel, not the owner. Keep it somewhere you'll remember — we can't re-forge a lost link.</p></div>
         </div>
+      </div>
+    </section>
+  </div>
 
-        <!-- View 7: Privacy Path -->
-        <div id="view-privacy" class="app-view">
-            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto; text-align: left;">
-                <h1>Privacy Policy</h1>
-                <h3>1. Information We Collect</h3>
-                <p>We collect basic mortal data required to ship your physical vessel. We do not harvest your personal aura.</p>
-            </section>
+  <!-- FEATURES -->
+  <div id="view-features" class="app-view">
+    <section class="sub-page-container">
+      <h1>Magical Architecture</h1>
+      <p>Every chalice is forged around the same four enchantments, regardless of size or finish.</p>
+      <div class="features">
+        <div class="feature-card"><h3>🌀 Infinite Supply</h3><p>Renders up to 5 litres per minute indefinitely, drawn straight from the standing bridge.</p></div>
+        <div class="feature-card"><h3>✨ Magic-Filtered</h3><p>Sourced straight from the pristine Elemental Plane, filtered before it ever reaches the rim.</p></div>
+        <div class="feature-card"><h3>❄️ Temperature Ward</h3><p>Set it once, from glacial to just-below-boiling, and the ward holds regardless of the room.</p></div>
+        <div class="feature-card"><h3>🛡️ Spill-Proof Runes</h3><p>The flow only opens above an open vessel and seals shut the instant it's withdrawn.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PRICING -->
+  <div id="view-pricing" class="app-view">
+    <section class="sub-page-container">
+      <h1>Choose Your Vessel</h1>
+      <p>A one-time forging. No refills, no subscriptions, no metering.</p>
+      <div class="features">
+        <div class="feature-card">
+          <h3>Apprentice Flask</h3>
+          <p>A modest ward for a single drinker.</p>
+          <p class="price-tag">150 Gold Pieces</p>
+          <button class="btn btn-primary">Order Flask</button>
         </div>
-
-        <!-- View 8: Fallback / 404 Dashboard View -->
-        <div id="view-404" class="app-view">
-            <div style="text-align:center; padding: 150px 20px;">
-                <h1 style="font-size: 5rem; color: #ff3366;">ERROR 404</h1>
-                <h2>Runic Pathway Broken</h2>
-                <p style="margin: 20px 0 40px; color:#9ca3af;">The portal collapsed. Other known server anomalies include 301 (Permanent Redirection) and 500 (Alchemical Meltdown).</p>
-                <a href="/" class="nav-link btn-primary" data-path="/">Return Home</a>
-            </div>
+        <div class="feature-card">
+          <h3>Archmage Chalice</h3>
+          <p>Full temperature ward and household-scale flow.</p>
+          <p class="price-tag">450 Gold Pieces</p>
+          <button class="btn btn-primary">Order Chalice</button>
         </div>
-
-    </main>
-
-    <!-- Final Clean Legal Footer Content Links -->
-    <footer style="text-align: center; padding: 45px 20px; color: #4b5563; border-top: 1px solid #1f2937; font-size: 0.85rem; background-color: #0b0f19;">
-        <p style="margin-bottom: 10px;">&copy; 2026 EternalFlow Inc. All Rights Reserved.</p>
-        <div class="footer-legal-links">
-            <a href="/terms" class="nav-link legal-link" data-path="/terms" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Terms of Sorcery</a> | 
-            <a href="/privacy" class="nav-link legal-link" data-path="/privacy" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+        <div class="feature-card">
+          <h3>Guildhall Fountain</h3>
+          <p>Unlimited outlets for estates and guildhalls.</p>
+          <p class="price-tag">1200 Gold Pieces</p>
+          <button class="btn btn-primary">Order Fountain</button>
         </div>
-    </footer>
+      </div>
+    </section>
+  </div>
 
-    <!-- Client-Side Routing Javascript Script Logic Engine -->
-    <script>
-        // Dictionary linking paths to view structural elements
-        const routes = {
-            '/': 'view-home',
-            '/features': 'view-features',
-            '/pricing': 'view-pricing',
-            '/testimonials': 'view-testimonials',
-            '/about': 'view-about',
-            '/terms': 'view-terms',
-            '/privacy': 'view-privacy'
-        };
+  <!-- TESTIMONIALS -->
+  <div id="view-testimonials" class="app-view">
+    <section class="sub-page-container">
+      <h1>Endorsed Across Realms</h1>
+      <div class="features">
+        <div class="feature-card"><p>"I haven't paid a copper coin to the local water grid since the Second Age."</p><h3 style="margin-top:16px;">— Elrond M.</h3></div>
+        <div class="feature-card"><p>"The temperature ward alone paid for itself. No more heating pots over the fire before dawn."</p><h3 style="margin-top:16px;">— Cassian R.</h3></div>
+        <div class="feature-card"><p>"We run the guildhall kitchens off one Fountain. It hasn't faltered through two droughts."</p><h3 style="margin-top:16px;">— Ilka V.</h3></div>
+      </div>
+    </section>
+  </div>
 
-        function router() {
-            const path = window.location.pathname;
-            const targetViewId = routes[path] || 'view-404';
-            
-            // Hide all structural views safely
-            document.querySelectorAll('.app-view').forEach(view => {
-                view.classList.remove('active-view');
-            });
+  <!-- ABOUT -->
+  <div id="view-about" class="app-view">
+    <section class="sub-page-container">
+      <div class="legal-page" style="text-align:center;">
+        <h1>Our Alchemical Mission</h1>
+        <p>We construct micro-bridges across time and space to tap into high-pressure elemental zones, so every chalice draws from a current that never runs dry. What began as one warded flask behind a workshop has become a guild of alchemists who forge, ship, and maintain every vessel in circulation.</p>
+      </div>
+    </section>
+  </div>
 
-            // Activate specific selected route layout
-            document.getElementById(targetViewId).classList.add('active-view');
-            window.scrollTo(0, 0);
-        }
+  <!-- TERMS -->
+  <div id="view-terms" class="app-view">
+    <section class="sub-page-container">
+      <div class="legal-page">
+        <h1>Terms of Sorcery</h1>
+        <h3>1. License to Hydrate</h3>
+        <p>Users strictly agree NOT to attempt to modify the internal wormhole geometry to draw liquid magma, lava, or any substance other than potable water.</p>
+        <h3>2. Permanent Binding</h3>
+        <p>Once forged, a chalice's cosmic link cannot be transferred, duplicated, or unbound. The enchantment follows the physical vessel only.</p>
+        <h3>3. Reasonable Use</h3>
+        <p>The flow is intended for drinking, cooking, and household-scale use. Attempts to flood, weaponize, or resell metered access void the enchantment.</p>
+      </div>
+    </section>
+  </div>
 
-        // Bind interception listeners to every custom single layout router anchor link
-        document.body.addEventListener('click', e => {
-            const targetLink = e.target.closest('.nav-link');
-            if (targetLink) {
-                e.preventDefault();
-                const newPath = targetLink.getAttribute('data-path');
-                window.history.pushState({}, '', newPath);
-                router();
-            }
-        });
+  <!-- PRIVACY -->
+  <div id="view-privacy" class="app-view">
+    <section class="sub-page-container">
+      <div class="legal-page">
+        <h1>Privacy Policy</h1>
+        <h3>1. Information We Collect</h3>
+        <p>We collect basic mortal data required to ship your physical vessel. We do not harvest your personal aura.</p>
+        <h3>2. What We Never Record</h3>
+        <p>How much water you draw, when you draw it, or what you use it for. The current is not metered, and neither are you.</p>
+        <h3>3. Your Rights</h3>
+        <p>You may ask any guild alchemist to remove your household record at any time; this does not affect your chalice's binding.</p>
+      </div>
+    </section>
+  </div>
 
-        // Toggle state rules component for FAQ layout section accordion items
-        document.body.addEventListener('click', e => {
-            if (e.target.classList.contains('faq-question')) {
-                e.target.parentElement.classList.toggle('active');
-            }
-        });
+  <!-- 404 -->
+  <div id="view-404" class="app-view">
+    <div class="error-box">
+      <h1>ERROR 404</h1>
+      <h2>Runic Pathway Broken</h2>
+      <p>The portal collapsed, or the link that pointed here was already broken.</p>
+      <ul class="error-codes">
+        <li><strong>404</strong> — Not Found. The runic pathway doesn't match any known page.</li>
+        <li><strong>301</strong> — Moved Permanently. The page may have relocated to a new sigil.</li>
+        <li><strong>500</strong> — Alchemical Meltdown. Something failed on our end, not yours.</li>
+      </ul>
+      <a href="/" class="nav-link btn btn-primary" data-path="/">Return Home</a>
+    </div>
+  </div>
 
-        // Capture client window browser movement histories
-        window.addEventListener('popstate', router);
-        window.addEventListener('DOMContentLoaded', router);
-    </script>
+</main>
+
+<footer>
+  <p>&copy; <span id="year"></span> EternalFlow Inc. All Rights Reserved.</p>
+  <div class="footer-legal-links">
+    <a href="/terms" class="nav-link" data-path="/terms">Terms of Sorcery</a>
+    <a href="/privacy" class="nav-link" data-path="/privacy">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+  // ---------- Routing ----------
+  var routes = {
+    '/': 'view-home',
+    '/features': 'view-features',
+    '/pricing': 'view-pricing',
+    '/testimonials': 'view-testimonials',
+    '/about': 'view-about',
+    '/terms': 'view-terms',
+    '/privacy': 'view-privacy'
+  };
+
+  function router(pushPath){
+    var path = pushPath !== undefined ? pushPath : window.location.pathname;
+    var targetViewId = routes[path] || 'view-404';
+
+    if(pushPath !== undefined){
+      window.history.pushState({}, '', routes[path] ? path : path);
+    }
+
+    document.querySelectorAll('.app-view').forEach(function(view){
+      view.classList.remove('active-view');
+    });
+    document.getElementById(targetViewId).classList.add('active-view');
+
+    document.querySelectorAll('.nav-link[data-path]').forEach(function(link){
+      link.classList.toggle('active', link.getAttribute('data-path') === path);
+    });
+
+    window.scrollTo(0, 0);
+    document.getElementById('siteNav').classList.remove('open');
+    document.getElementById('menuToggle').setAttribute('aria-expanded', 'false');
+  }
+
+  document.body.addEventListener('click', function(e){
+    var targetLink = e.target.closest('.nav-link');
+    if(targetLink){
+      e.preventDefault();
+      router(targetLink.getAttribute('data-path'));
+    }
+  });
+
+  // ---------- FAQ accordion ----------
+  document.body.addEventListener('click', function(e){
+    var q = e.target.closest('.faq-question');
+    if(q){
+      var item = q.parentElement;
+      var wasOpen = item.classList.contains('active');
+      document.querySelectorAll('.faq-item.active').forEach(function(i){
+        i.classList.remove('active');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      if(!wasOpen){
+        item.classList.add('active');
+        q.setAttribute('aria-expanded', 'true');
+      }
+    }
+  });
+
+  // ---------- Mobile nav ----------
+  var menuToggle = document.getElementById('menuToggle');
+  var siteNav = document.getElementById('siteNav');
+  menuToggle.addEventListener('click', function(){
+    var open = siteNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // ---------- Video placeholder ----------
+  // Shows a play-button overlay until a real video file exists at your-commercial.mp4.
+  (function(){
+    var video = document.querySelector('.video-container video');
+    var placeholder = document.getElementById('videoPlaceholder');
+    var playBtn = document.getElementById('playPlaceholder');
+
+    function hasSource(){
+      return video.currentSrc !== '' && video.readyState > 0;
+    }
+    video.addEventListener('loadeddata', function(){ placeholder.style.display = 'none'; });
+    video.addEventListener('error', function(){ placeholder.style.display = 'flex'; }, true);
+
+    playBtn.addEventListener('click', function(){
+      video.play().catch(function(){
+        alert('No commercial file is attached yet — add your-commercial.mp4 to enable playback.');
+      });
+    });
+  })();
+
+  window.addEventListener('popstate', function(){ router(); });
+  window.addEventListener('DOMContentLoaded', function(){
+    router();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  });
+</script>
+
 </body>
 </html>
