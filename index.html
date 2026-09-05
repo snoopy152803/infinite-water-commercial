@@ -207,7 +207,10 @@
   /* ---------- Footer ---------- */
   footer{
     text-align:center;padding:45px 20px;color:#4b5563;
-    border-top:1px solid var(--line);font-size:0.85rem;background-color:var(--bg);
+    border-top:1px solid var(--line);font-size:0.85rem;
+    background-color:var(--panel);
+    opacity:1;
+    position:relative;
   }
   footer p{margin-bottom:12px;}
   .footer-legal-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;}
@@ -221,6 +224,22 @@
     .btn{width:100%;max-width:300px;}
     .sub-page-container{padding-top:180px;}
   }
+
+  /* ---------- Order confirmation toast ---------- */
+  .toast{
+    position:fixed;bottom:30px;left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--panel);border:1px solid var(--cyan);
+    color:var(--text);padding:16px 22px;border-radius:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    font-size:0.92rem;
+    display:flex;align-items:center;gap:12px;
+    opacity:0;pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+    z-index:200;max-width:90vw;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+  .toast strong{color:var(--cyan);}
 </style>
 </head>
 <body>
@@ -337,19 +356,19 @@
           <h3>Apprentice Flask</h3>
           <p>A modest ward for a single drinker.</p>
           <p class="price-tag">150 Gold Pieces</p>
-          <button class="btn btn-primary">Order Flask</button>
+          <button class="btn btn-primary order-btn" data-product="Apprentice Flask" data-price="150 Gold Pieces">Order Flask</button>
         </div>
         <div class="feature-card">
           <h3>Archmage Chalice</h3>
           <p>Full temperature ward and household-scale flow.</p>
           <p class="price-tag">450 Gold Pieces</p>
-          <button class="btn btn-primary">Order Chalice</button>
+          <button class="btn btn-primary order-btn" data-product="Archmage Chalice" data-price="450 Gold Pieces">Order Chalice</button>
         </div>
         <div class="feature-card">
           <h3>Guildhall Fountain</h3>
           <p>Unlimited outlets for estates and guildhalls.</p>
           <p class="price-tag">1200 Gold Pieces</p>
-          <button class="btn btn-primary">Order Fountain</button>
+          <button class="btn btn-primary order-btn" data-product="Guildhall Fountain" data-price="1200 Gold Pieces">Order Fountain</button>
         </div>
       </div>
     </section>
@@ -382,12 +401,31 @@
     <section class="sub-page-container">
       <div class="legal-page">
         <h1>Terms of Sorcery</h1>
-        <h3>1. License to Hydrate</h3>
-        <p>Users strictly agree NOT to attempt to modify the internal wormhole geometry to draw liquid magma, lava, or any substance other than potable water.</p>
-        <h3>2. Permanent Binding</h3>
-        <p>Once forged, a chalice's cosmic link cannot be transferred, duplicated, or unbound. The enchantment follows the physical vessel only.</p>
-        <h3>3. Reasonable Use</h3>
-        <p>The flow is intended for drinking, cooking, and household-scale use. Attempts to flood, weaponize, or resell metered access void the enchantment.</p>
+        <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0;">Effective as of the Third Age, Cycle 217. Last amended upon the founding of the Guild of Alchemists.</p>
+
+        <h3>1. Acceptance of Enchantment</h3>
+        <p>By taking delivery of an EternalFlow vessel — whether an Apprentice Flask, Archmage Chalice, or Guildhall Fountain — you, the bearer, agree to be bound by these Terms of Sorcery in full. If you do not agree, do not accept delivery of the vessel; returning a forged item after activation is not possible.</p>
+
+        <h3>2. License to Hydrate</h3>
+        <p>Users are granted a personal, non-transferable license to draw water from their vessel for drinking, cooking, bathing, and irrigation consistent with ordinary household or guildhall use. Users strictly agree NOT to attempt to modify the internal wormhole geometry to draw liquid magma, lava, or any substance other than potable water.</p>
+
+        <h3>3. Permanent Binding</h3>
+        <p>Once forged, a chalice's cosmic link cannot be transferred, duplicated, sold separately from the vessel, or unbound by any party other than a licensed Guild Alchemist. The enchantment follows the physical vessel, not its owner. Loss of the vessel constitutes loss of access to the current; the Guild cannot re-forge a lost link.</p>
+
+        <h3>4. Reasonable Use</h3>
+        <p>The flow is calibrated for use at a scale consistent with a household, apprentice's quarters, or guildhall kitchen. Attempts to flood adjoining property, weaponize the current, dam it for hydroelectric purposes, or resell metered access to third parties will void the enchantment without refund.</p>
+
+        <h3>5. Warranty of Flow</h3>
+        <p>If your vessel's current stops flowing under normal, licensed use, return it to any Guild outpost for inspection at no charge. Bindings broken through unauthorized modification, submersion in volcanic material, or exposure to counter-enchantments are not covered under this warranty.</p>
+
+        <h3>6. Limitation of Liability</h3>
+        <p>The Guild of Alchemists is not liable for changes in local water tables, disputes with neighboring wells, structural damage from unattended overflow, or general astonishment among houseguests. Vessels are provided "as enchanted," without warranty as to compatibility with mundane plumbing.</p>
+
+        <h3>7. Governing Plane</h3>
+        <p>These Terms are governed by the customary law of the Elemental Plane of Water, as recognized by the Guild Council, and by the laws of whichever mortal jurisdiction the vessel is physically delivered to, to the extent the two do not conflict.</p>
+
+        <h3>8. Amendments</h3>
+        <p>The Guild may amend these Terms as new bindings are refined. Continued use of a vessel after an amendment takes effect constitutes acceptance of the revised Terms.</p>
       </div>
     </section>
   </div>
@@ -397,12 +435,31 @@
     <section class="sub-page-container">
       <div class="legal-page">
         <h1>Privacy Policy</h1>
+        <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0;">Effective as of the Third Age, Cycle 217. Applies to all bearers of an EternalFlow vessel and visitors to this scrying-glass.</p>
+
         <h3>1. Information We Collect</h3>
-        <p>We collect basic mortal data required to ship your physical vessel. We do not harvest your personal aura.</p>
-        <h3>2. What We Never Record</h3>
-        <p>How much water you draw, when you draw it, or what you use it for. The current is not metered, and neither are you.</p>
-        <h3>3. Your Rights</h3>
-        <p>You may ask any guild alchemist to remove your household record at any time; this does not affect your chalice's binding.</p>
+        <p>We collect basic mortal data required to ship your physical vessel: your name, delivery coordinates, and preferred vessel size. If you contact the Guild directly, we retain the correspondence to resolve your inquiry.</p>
+
+        <h3>2. Information We Never Collect</h3>
+        <p>We do not harvest your personal aura, dreams, bloodline, or any biometric or magical signature. We do not record how much water you draw, when you draw it, or what you use it for. The current is not metered, and neither are you.</p>
+
+        <h3>3. How We Use Your Information</h3>
+        <p>Household records are used solely to fulfill your order, coordinate warranty inspections, and notify you of Guild-wide safety amendments to these Terms. We do not use your information to train divination familiars or any similar construct.</p>
+
+        <h3>4. Sharing of Information</h3>
+        <p>We do not share household records outside the Guild of Alchemists under any circumstance, including with allied guilds, mercenary companies, or scrying networks, except where compelled by a binding tribunal order.</p>
+
+        <h3>5. Data Retention</h3>
+        <p>Household records are retained for the lifetime of your vessel's binding, so a Guild Alchemist can identify your chalice if it requires inspection, and are archived thereafter only as required by tribunal record-keeping law.</p>
+
+        <h3>6. Your Rights</h3>
+        <p>You may ask any Guild Alchemist to remove your household record at any time; this does not affect your chalice's binding or its continued flow. You may also request a copy of the record we hold on you.</p>
+
+        <h3>7. Changes to This Policy</h3>
+        <p>The Guild may revise this Policy as recordkeeping customs evolve. Material changes will be posted here and, where practical, sent by raven to bearers on file.</p>
+
+        <h3>8. Contact</h3>
+        <p>Questions about this Policy may be directed to any Guild outpost or by leaving word with your nearest Archmage.</p>
       </div>
     </section>
   </div>
@@ -431,6 +488,8 @@
     <a href="/privacy" class="nav-link" data-path="/privacy">Privacy Policy</a>
   </div>
 </footer>
+
+<div class="toast" id="orderToast" role="status" aria-live="polite"></div>
 
 <script>
   // ---------- Routing ----------
@@ -518,6 +577,21 @@
       });
     });
   })();
+
+  // ---------- Order buttons ----------
+  var toast = document.getElementById('orderToast');
+  var toastTimer;
+  document.body.addEventListener('click', function(e){
+    var orderBtn = e.target.closest('.order-btn');
+    if(orderBtn){
+      var product = orderBtn.getAttribute('data-product');
+      var price = orderBtn.getAttribute('data-price');
+      toast.innerHTML = '🧙 Order placed! Your <strong>' + product + '</strong> (' + price + ') is being forged for delivery.';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 4000);
+    }
+  });
 
   window.addEventListener('popstate', function(){ router(); });
   window.addEventListener('DOMContentLoaded', function(){
