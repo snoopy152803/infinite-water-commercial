@@ -6,6 +6,8 @@
     <title>EternalFlow | Infinite Hydration</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="/favicon.png?v=1">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0b0f19">
     <style>
         /* Hidden structural state for app views */
         .app-view { display: none; }
@@ -91,6 +93,7 @@
             <a href="/pricing" class="nav-link" data-path="/pricing">Pricing</a>
             <a href="/testimonials" class="nav-link" data-path="/testimonials">Reviews</a>
             <a href="/about" class="nav-link" data-path="/about">Our Alchemists</a>
+            <button id="install-btn" type="button" style="display:none; margin-left:20px; padding:9px 18px; border-radius:20px; background:linear-gradient(135deg,#0072ff,#00d4ff); color:white; border:none; font-weight:bold; font-size:0.9rem; cursor:pointer;">⬇ Install App</button>
         </nav>
     </header>
 
@@ -402,6 +405,38 @@
             }
         });
 
+    </script>
+
+    <!-- PWA: service worker registration + Install App button -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+            });
+        }
+
+        let deferredInstallPrompt = null;
+        const installBtn = document.getElementById('install-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Chrome/Edge fire this when the site meets installability
+            // criteria (manifest + service worker + served over HTTPS).
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            installBtn.style.display = 'inline-block';
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (!deferredInstallPrompt) return;
+            deferredInstallPrompt.prompt();
+            await deferredInstallPrompt.userChoice;
+            deferredInstallPrompt = null;
+            installBtn.style.display = 'none';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBtn.style.display = 'none';
+        });
     </script>
 </body>
 </html>
