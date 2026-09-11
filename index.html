@@ -3,440 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EternalFlow | Infinite Hydration</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="/favicon.png?v=1">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#0b0f19">
+
+    <title>Some Quotes</title>
+
     <style>
-        /* Hidden structural state for app views */
-        .app-view { display: none; }
-        .app-view.active-view { display: block; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        #quote {
+            font-size: 28px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .loading {
+            color: #888;
+        }
+
+        .error {
+            color: #c0392b;
+        }
     </style>
-
-<style>
-    .order-modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        background: rgba(0,0,0,.72);
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-    .order-modal.open { display: flex; }
-    .order-box {
-        width: min(520px, 100%);
-        background: #111827;
-        border: 1px solid #374151;
-        border-radius: 18px;
-        padding: 28px;
-        box-shadow: 0 25px 80px rgba(0,0,0,.5);
-        position: relative;
-    }
-    .order-box h2 { margin-top: 0; }
-    .order-box label {
-        display: block;
-        margin: 14px 0 6px;
-        color: #d1d5db;
-        font-weight: 600;
-    }
-    .order-box input,
-    .order-box textarea {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 12px 14px;
-        border: 1px solid #4b5563;
-        border-radius: 9px;
-        background: #0b0f19;
-        color: white;
-        font: inherit;
-    }
-    .order-box textarea { min-height: 90px; resize: vertical; }
-    .order-close {
-        position: absolute;
-        right: 16px;
-        top: 12px;
-        border: 0;
-        background: transparent;
-        color: #9ca3af;
-        font-size: 28px;
-        cursor: pointer;
-    }
-    .order-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-        justify-content: flex-end;
-    }
-    .order-cancel {
-        border: 1px solid #4b5563;
-        background: transparent;
-        color: white;
-        padding: 11px 18px;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-    .order-status { margin-top: 14px; min-height: 22px; }
-</style>
-
 </head>
+
 <body>
 
-    <!-- Shared Header Navigation Links -->
-    <header>
-        <div class="logo">EternalFlow</div>
-        <nav>
-            <a href="/" class="nav-link" data-path="/">Home</a>
-            <a href="/features" class="nav-link" data-path="/features">Features</a>
-            <a href="/pricing" class="nav-link" data-path="/pricing">Pricing</a>
-            <a href="/testimonials" class="nav-link" data-path="/testimonials">Reviews</a>
-            <a href="/about" class="nav-link" data-path="/about">Our Alchemists</a>
-            <button id="install-btn" type="button" style="display:none; margin-left:20px; padding:9px 18px; border-radius:20px; background:linear-gradient(135deg,#0072ff,#00d4ff); color:white; border:none; font-weight:bold; font-size:0.9rem; cursor:pointer;">⬇ Install App</button>
-        </nav>
-    </header>
+    <div class="container">
+        <h1>The Quote</h1>
 
-    <!-- Master Layout Canvas Container -->
-    <main id="view-canvas">
-        
-        <!-- View 1: Home Path -->
-        <div id="view-home" class="app-view">
-            <section class="hero">
-                <div class="hero-content">
-                    <h1>The Last Drop You Will Ever Need.</h1>
-                    <p>Say goodbye to drought, plumbing, and logic. EternalFlow is a hand-carved obsidian chalice that manifests pure, ice-cold glacial water out of the ethereal plane. Constantly.</p>
-                    <div class="hero-buttons">
-                        <a href="/pricing" class="nav-link btn-primary" data-path="/pricing">Claim Yours</a>
-                        <a href="/features" class="nav-link btn-secondary" data-path="/features">Explore The Lore</a>
-                    </div>
-                </div>
-            </section>
-
-    <!-- Laptop Commercial Video Section -->
-            <section class="video-section">
-                <h2>Leaked Laptop Footage</h2>
-                <p class="subtitle">A customer tried unboxing the chalice next to their computer. Things got out of hand.</p>
-                <div class="video-container">
-            
-                    <!-- FINAL VERIFIED YOUTUBE EMBED PLAYER PORTAL -->
-                    <iframe width="100%" height="450" src="https://youtu.be/XFoD0wbNf94" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="background: #000; border: none; display: block;"></iframe>
-            
-                </div>
-            </section>
-
-            <section class="faq-section">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-container">
-                    <div class="faq-item"><button class="faq-question">Can I use this water to brew standard potions?</button><div class="faq-answer"><p>Absolutely, though the inherent elemental purity will increase your potion potency by roughly forty percent.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">What happens if an anti-magic field is cast near it?</button><div class="faq-answer"><p>The flow will safely pause temporarily and automatically resume the moment the field dissipates.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">Is the elemental plasma safe for mortal consumption?</button><div class="faq-answer"><p>Strictly speaking, no, unless you have purchased the specialized Archmage tier containing advanced fire-resistance wards.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">Does the spatial compression make the vessel heavy?</button><div class="faq-answer"><p>Not at all, as internal mass-negation runes ensure it remains as light as an empty glass.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">Can I link the conduit to a different elemental plane?</button><div class="faq-answer"><p>Tampering with the planar alignment is highly illegal and will instantly void your lifetime structural warranty.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">How do I clean the internal bottomless reservoir?</button><div class="faq-answer"><p>You don't need to, because the passive abjuration ward automatically disintegrates any debris or residue instantly.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">Will the auto-targeting spout spill if I am running?</button><div class="faq-answer"><p>No, the integrated telekinetic guidance charm dynamically adjusts the stream trajectory to match your movement perfectly.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">What should I do if the water begins speaking to me?</button><div class="faq-answer"><p>Please contact our planar support circle immediately, as sentient manifestations require urgent diplomatic processing.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">Can the temperature runes freeze my beverage instantly?</button><div class="faq-answer"><p>Yes, a single mental command can drop the fluid temperature to sub-zero frost within a fraction of a second.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">Is there a limit to the daily extraction volume?</button><div class="faq-answer"><p>There is no physical limit, though drawing over three thousand barrels per solar cycle may attract celestial tax collectors.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">Can I store stolen dragon eggs inside the container?</button><div class="faq-answer"><p>Doing so violates the Terms of Sorcery and will cause the Planar Sentinels to seize the vessel remotely.</p></div></div>
-                    <div class="faq-item"><button class="faq-question">Does the astral luminescence turn off during the day?</button><div class="faq-answer"><p>The cosmic glow is continuous, but it naturally blends into daylight and only becomes highly visible in dark dungeons.</p></div></div>
-                </div>
-            </section>
-        </div>
-
-        <!-- View 2: Features Path -->
-        <div id="view-features" class="app-view">
-            <section class="sub-page-container">
-                <h1>Magical Architecture</h1>
-                <div class="features">
-                    <div class="feature-card"><h3>🌀 Infinite Supply</h3><p>Harnesses an absolute, uninterrupted conduit to the eternal tides to consistently render up to 5 litres of liquid per minute indefinitely without ever draining your personal mana reserves.</p></div>
-                    <div class="feature-card"><h3>✨ Magic-Filtered</h3><p>Sourced straight from the pristine Elemental Plane and passed through an ancient crystalline matrix that systematically purifies every single drop from mortal imperfections.</p></div>
-                    <div class="feature-card"><h3>🔥 Temperature Control</h3><p>Utilizes embedded micro-runes of the lower sub-planes to seamlessly transition your liquid from a refreshing, sub-zero frost to a rolling, violent boil at a mere momentary thought.</p></div>
-                    <div class="feature-card"><h3>🌌 Bottomless Reservoir</h3><p>Engineered via localized spatial compression and dimensional folding, allowing the vessel to safely hold thousands of gallons of fluid internally while remaining perfectly light and balanced in your hand.</p></div>
-                    <div class="feature-card"><h3>🛡️ Ever-Pure Ward</h3><p>A passive abjuration aura constantly scans the container, instantly neutralizing airborne toxins, deadly alchemical poisons, and foul malicious curses before they can ever taint your brew.</p></div>
-                    <div class="feature-card"><h3>🌿 Essence Infusion</h3><p>Passes your liquid through an ethereal energetic lattice that naturally imbues it with vitalizing wood-elemental energy, gently curing minor physical fatigue and soothing frayed nerves with every sip.</p></div>
-                    <div class="feature-card"><h3>⚡ Chrono-Chilled</h3><p>Suspends the internal state of the vessel within a localized stasis field, guaranteeing that your beverage remains perfectly frost-locked at its optimal serving temperature for centuries without losing a single degree of chill.</p></div>
-                    <div class="feature-card"><h3>🌟 Astral Luminescence</h3><p>Imbues the outer casing with a soft cosmic radiance captured from collapsing stars, casting a warm, comforting glow that naturally illuminates dark dungeons and dispels magical shadows up to thirty paces away.</p></div>
-                    <div class="feature-card"><h3>🧪 Alchemical Adaptation</h3><p>Employs transmutation matrices to organically alter the density, viscosity, and chemical composition of the contents, seamlessly transforming simple well water into rich elixirs, sweet nectars, or potent tonics with a single command word.</p></div>
-                    <div class="feature-card"><h3>🍃 Featherlight Enchantment</h3><p>Woven with gravity-negating air currents that permanently nullify the physical weight of the container, ensuring that even when filled to its absolute capacity, it hovers gently above your palm and adds zero burden to your pack.</p></div>
-                    <div class="feature-card"><h3>🐾 Beast-Befriending Aroma</h3><p>Exudes a subtle, hypnotic olfactory aura derived from wild fey flora, projecting a soothing scent that immediately pacifies nearby aggressive woodland creatures and coaxes wild beasts into a state of docile curiosity.</p></div>
-                    <div class="feature-card"><h3>🎯 Auto-Targeting Spout</h3><p>Features a specialized telekinetic guidance charm built into the rim, allowing the vessel to intelligently arc its stream directly into the mouth of a companion or a waiting goblet up to ten feet away without spilling a single drop.</p></div>
-
-                </div>
-            </section>
-        </div>
-
-        <!-- View 3: Pricing Path -->
-        <div id="view-pricing" class="app-view">
-            <section class="sub-page-container">
-                <h1>Choose Your Vessel</h1>
-                <div class="features">
-                <div class="feature-card"><h3>Journeyman Carafe</h3><p class="price-tag">$25 AUD</p><button class="btn-primary order-btn" type="button" data-product="Journeyman Carafe" data-price="$25 AUD">Order Carafe</button></div>
-                <div class="feature-card"><h3>Sorcerer Goblet</h3><p class="price-tag">$30 AUD</p><button class="btn-primary order-btn" type="button" data-product="Sorcerer Goblet" data-price="$30 AUD">Order Goblet</button></div>
-                <div class="feature-card"><h3>High Druid Decanter</h3><p class="price-tag">$40 AUD</p><button class="btn-primary order-btn" type="button" data-product="High Druid Decanter" data-price="$40 AUD">Order Decanter</button></div>
-                <div class="feature-card"><h3>Alchemist Cauldron</h3><p class="price-tag">$45 AUD</p><button class="btn-primary order-btn" type="button" data-product="Alchemist Cauldron" data-price="$45 AUD">Order Cauldron</button></div>
-                <div class="feature-card"><h3>Celestial Amphora</h3><p class="price-tag">$50 AUD</p><button class="btn-primary order-btn" type="button" data-product="Celestial Amphora" data-price="$50 AUD">Order Amphora</button></div>
-                <div class="feature-card"><h3>Titan Reservoir</h3><p class="price-tag">$75 AUD</p><button class="btn-primary order-btn" type="button" data-product="Titan Reservoir" data-price="$75 AUD">Order Reservoir</button></div>
-
-                </div>
-            </section>
-        </div>
-
-        <!-- View 4: Testimonials Path -->
-        <div id="view-testimonials" class="app-view">
-            <section class="sub-page-container">
-                <h1>Endorsed Across Realms</h1>
-                <div class="features">
-                <div class="feature-card"><p>"The Grand Inquisitor tried to tax my infinite wellspring as an unregulated arcane distillery, but my legal counsel successfully argued that cosmic condensation falls entirely outside imperial jurisdiction."</p><h3>— Archmage Xylar</h3></div>
-                <div class="feature-card"><p>"When the desert bandits sieged our fortress and cut off our aqueducts, they expected a quick surrender. Imagine their confusion when we started hosting courtyard pool parties."</p><h3>— Captain Vane</h3></div>
-                <div class="feature-card"><p>"A localized gravity collapse completely inverted my tower, yet this brilliant little chalice kept pouring upward into my teacup without losing a single drop to the ceiling."</p><h3>— Chronomancer Orik</h3></div>
-                <div class="feature-card"><p>"My familiar accidentally dropped the flask into a volcanic trench, and instead of shattering, it spent three days aggressively terraforming the magma into a lovely hot spring resort."</p><h3>— Alchemist Beatrice</h3></div>
-                <div class="feature-card"><p>"The regional water baron threatened to send his enforcers to break my decanter. I told him the vessel holds a direct pressure line to an angry sea deity, and he promptly reconsidered."</p><h3>— Silas the Grey</h3></div>
-                <div class="feature-card"><p>"Our royal treasury was entirely depleted by dragon raids, but we managed to completely rebuild the kingdom's economy just by selling pristine plane-filtered ice cubes to the southern sultanates."</p><h3>— Queen Lyanna II</h3></div>
-                </div>
-            </section>
-        </div>
-
-        <!-- View 5: About Path -->
-        <div id="view-about" class="app-view">
-            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto;">
-                <h1>Our Alchemical Mission</h1>
-                <p>By leveraging advanced trans-dimensional physics, we construct localized micro-bridges across the fabric of space-time to directly tap into high-pressure, high-density elemental zones situated across the deep cosmos. Rather than tearing massive, highly volatile, and dangerously unstable macroscopic wormholes through the structural continuum of the universe, our extraction architecture utilizes highly focused quantum punctures—pinprick conduits precision-scaled down to the subatomic Planck length. These micro-bridges operate as ultra-dense, non-linear pipelines, completely bypassing the crushing, multi-parsec distances of ordinary physical space and the restrictive, forward-marching flow of linear time to forge an instantaneous, direct uplink with the raw, hyper-chaotic interiors of volatile celestial entities. By anchoring the terminal, receiving apertures of these subatomic bridges deep into extreme high-pressure elemental zones—such as the hyper-dense, churning thermonuclear cores of active hypermassive stars, the violently accelerating relativistic accretion disks surrounding active supermassive black holes, or the primordial, super-compressed element pools of the early, pre-inflationary universe—we successfully establish an artificial cosmic pressure differential of unparalleled magnitude. The extreme, hyper-condensed energy locked within these cosmic hot zones naturally bleeds down through the microscopic gateways, seeking thermodynamic equilibrium with our lower-energy local environment. This process goes far beyond the mere extraction of raw power; we systematically siphon incredibly rare, stable exotic isotopes, pure high-temperature elemental plasma, and relativistic high-energy particles that are physically impossible to synthesize or replicate under standard planetary laboratory conditions. Governed by sophisticated, self-correcting magnetic and gravitational containment matrices, these microscopic gateways harvest a steady, flawlessly regulated, and safely throttled torrent of raw cosmic force, permanently turning the volatile fury of distant space-time anomalies into a localized, endlessly sustainable, and genuinely infinite resource.</p>
-            </section>
-        </div>
-
-        <!-- View 6: Terms Path -->
-        <div id="view-terms" class="app-view">
-            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto; text-align: left;">
-                <h1>Terms of Sorcery</h1>
-                <h3>1. Layline Siphoning Penalties</h3><p>Users are strictly prohibited from attempting to channel local planetary laylines directly into the vessel's intake node, which carries a penalty of immediate mana-circuit burnout and permanent magical asset forfeiture.</p>
-                <h3>2. Necromantic Infusion Ban</h3><p>Infusing the internal reservoir with spectral ectoplasm, bottled banshee screams, or the distilled essence of the undead will trigger an immediate, remote-activated self-destruct cycle that safely implodes the device into the void.</p>
-                <h3>3. Sentient Fluid Clause</h3><p>Should the extracted liquid manifest a distinct consciousness, localized ego, or minor telepathic abilities, ownership immediately reverts to the universe and the user must grant it full diplomatic immunity.</p>
-                <h3>4. Unlicensed Transmutation Restrictions</h3><p>Attempting to permanently transmute the vessel's outer runic shell into precious metals or rare astral alloys via illegal alchemy voids all active structural warranties and immediately alerts the local Guild.</p>
-                <h3>5. Interdimensional Smuggling Ban</h3><p>Concealing illegal extra-planar contraband, stolen dragon eggs, or unregistered astral entities within the compressed spatial boundaries of the reservoir will result in immediate asset forfeiture to the Planar Sentinels.</p>
-                <h3>6. Chrono-Sipping Restrictions</h3><p>Drinking from the vessel while actively traveling through temporary space-time rifts or micro-wormholes is heavily discouraged and completely voids the structural integrity warranty due to fluid displacement loops.</p>
-                <h3>7. Unauthorized Flora Cultivation</h3><p>Users shall not utilize the water to intentionally cultivate parasitic fey flora, carnivorous marsh-vines, or any flora classified as an ecosystem-ending bioweapon by the High Magic Council.</p>
-                <h3>8. Divine Tax Compliance</h3><p>Any localized temporal duplicates or infinite liquid yields exceeding three thousand barrels per solar cycle are subject to tithing by the local pantheon or relevant extra-planar governing bodies.</p>
-                <h3>9. Sub-Zero Liability Disclaimer</h3><p>The manufacturer assumes no legal responsibility for permanent frostbite, localized glacial expansion, or the accidental freezing of entire residential quarters due to leaving the stasis valve unlatched overnight.</p>
-                <h3>10. Telekinetic Splash Protocol</h3><p>The auto-targeting guidance charm must never be aimed at royal dignitaries, high-ranking deities, or volatile fire-elementals, lest the user accept the physical consequences of a retaliatory declaration of war.</p>
-                <h3>11. Gravitational Drift Indemnity</h3><p>In the event that the vessel's weightless enchantment permanently detaches your backpack from local planetary gravity, the user bears all recovery costs associated with high-altitude orbital retrieval.</p>
-                <h3>12. Absolute Combustion Waiver</h3><p>The manufacturer accepts zero liability for spontaneous combustion, sudden localized gravitational collapses, or unexpected reality-warping events caused by attempting to brew coffee with pure cosmic plasma.</p>
-
-            </section>
-        </div>
-
-        <!-- View 7: Privacy Path -->
-        <div id="view-privacy" class="app-view">
-            <section class="sub-page-container" style="max-width: 800px; margin: 0 auto; text-align: left;">
-                <h1>Privacy Policy</h1>
-                <h3>1. Aura Telemetry Harvesting</h3><p>We systematically monitor, intercept, and record your biological mana signature and localized spiritual resonance frequencies to optimize the elemental flow rate and predict hydration demands before your physical body experiences thirst.</p>
-                <h3>2. Divination Matrix Encryption</h3><p>All recorded ethereal telemetry, spellcasting histories, and dimensional coordinates are heavily obfuscated using layered 256-bit abjuration wards to prevent illicit interception by scrying rogue magi or rival merchant syndicates.</p>
-                <h3>3. Thought-Stream Confidentiality</h3><p>Any passive telepathic feedback, erratic subconscious desires, or fleeting mental projections leaked into the vessel's neural matrix during high-stress encounters are wiped from our scrying mirrors at the end of every solar cycle.</p>
-                <h3>4. Planar Tracking Disclosures</h3><p>We do not share your physical planetary location with localized bounty hunter guilds or celestial tax collectors unless legally compelled by a high-ranking arbiter of the Planar Concordat or an active interdimensional warrant.</p>
-                <h3>5. Alchemical Data Purging</h3><p>Historical records detailing your liquid consumption ratios, exotic isotope preferences, and potion brewing frequencies are permanently dissolved in a pool of corrosive void-acid after ninety standard stellar cycles.</p>
-                <h3>6. Third-Party Oracle Access</h3><p>Anonymized biometric telemetry may occasionally be transmitted to trusted, high-level seer circles solely for the purpose of identifying systemic disruptions or erratic fluctuating instabilities within the universal layline network.</p>
-                <h3>7. Familiar & Homunculus Audits</h3><p>Your bound familiars, mechanical homunculi, and animated constructs are strictly prohibited from accessing, editing, or attempting to duplicate the stored digital and spiritual profiles linked to your master user account.</p>
-                <h3>8. Subconscious Cookie Implants</h3><p>We utilize faint, localized illusion charms within the vessel's reflective sheen to store basic interface preferences, ensuring your favored liquid temperature settings persist across multiple distinct dimensions.</p>
-                <h3>9. Memory Charm Overwrite Rights</h3><p>In the highly unlikely event of a catastrophic central database breach, we reserve the absolute right to remotely cast a minor localized Obliviate charm to safeguard our proprietary quantum architecture secrets.</p>
-                <h3>10. Minor Magician Protections</h3><p>Apprentices under the age of eighteen solar cycles must provide verifiable written consent signed in enchanted ink by a certified archmage or legal guardian before configuring advanced trans-dimensional conduits.</p>
-                <h3>11. Astral Projection Opt-Out</h3><p>Users may explicitly toggle off the soul-binding tracking feature by standard telepathic ritual, though doing so permanently disables real-time spatial positioning diagnostics and auto-refill priority queues.</p>
-                <h3>12. Ethereal Breach Notifications</h3><p>Should an aggressive chronological hacker or hostile void-entity breach our secure containment vaults, an emergency telepathic distress signal will be blasted directly into your cortex within twenty-four minutes of detection.</p>
-            </section>
-        </div>
-
-        <!-- View 8: Fallback / 404 Dashboard View -->
-        <div id="view-404" class="app-view">
-            <div style="text-align:center; padding: 150px 20px;">
-                <h1 style="font-size: 5rem; color: #ff3366;">ERROR 404</h1>
-                <h2>Runic Pathway Broken</h2>
-                <p style="margin: 20px 0 40px; color:#9ca3af;">The portal collapsed. Other known server anomalies include 301 (Permanent Redirection) and 500 (Alchemical Meltdown).</p>
-                <a href="/" class="nav-link btn-primary" data-path="/">Return Home</a>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Final Clean Legal Footer Content Links -->
-    <footer style="text-align: center; padding: 45px 20px; color: #4b5563; border-top: 1px solid #1f2937; font-size: 0.85rem; background-color: #0b0f19;">
-        <p style="margin-bottom: 10px;">&copy; 2026 EternalFlow Inc. All Rights Reserved.</p>
-        <div class="footer-legal-links">
-            <a href="/terms" class="nav-link legal-link" data-path="/terms" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Terms of Sorcery</a> | 
-            <a href="/privacy" class="nav-link legal-link" data-path="/privacy" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-        </div>
-    </footer>
-
-
-    <!-- Formspree Order Request Modal -->
-    <div id="order-modal" class="order-modal" aria-hidden="true">
-        <div class="order-box" role="dialog" aria-modal="true" aria-labelledby="order-title">
-            <button class="order-close" type="button" aria-label="Close">&times;</button>
-            <h2 id="order-title">Request Your Vessel</h2>
-            <p id="order-product"></p>
-
-            <!-- Replace YOUR_FORMSPREE_ID with the ID from your Formspree form URL -->
-            <form id="order-form" action="https://formspree.io/f/xdeoypva" method="POST">
-                <input type="hidden" name="product" id="order-product-field">
-                <input type="hidden" name="price" id="order-price-field">
-                <input type="hidden" name="_subject" id="order-subject-field">
-
-                <label for="customer-name">Your name</label>
-                <input id="customer-name" name="name" type="text" required autocomplete="name">
-
-                <label for="customer-email">Your email</label>
-                <input id="customer-email" name="email" type="email" required autocomplete="email">
-
-                <div class="order-actions">
-                    <button class="order-cancel" type="button">Cancel</button>
-                    <button class="btn-primary" type="submit">Send Request</button>
-                </div>
-                <div class="order-status" id="order-status" aria-live="polite"></div>
-            </form>
-        </div>
+        <p id="quote" class="loading">Loading...</p>
     </div>
 
-    <!-- Client-Side Routing Javascript Script Logic Engine -->
     <script>
-        // Dictionary linking paths to view structural elements
-        const routes = {
-            '/': 'view-home',
-            '/features': 'view-features',
-            '/pricing': 'view-pricing',
-            '/testimonials': 'view-testimonials',
-            '/about': 'view-about',
-            '/terms': 'view-terms',
-            '/privacy': 'view-privacy'
-        };
-
-        function router() {
-            const path = window.location.pathname;
-            const targetViewId = routes[path] || 'view-404';
-            
-            // Hide all structural views safely
-            document.querySelectorAll('.app-view').forEach(view => {
-                view.classList.remove('active-view');
-            });
-
-            // Activate specific selected route layout
-            document.getElementById(targetViewId).classList.add('active-view');
-            window.scrollTo(0, 0);
-        }
-
-        // Bind interception listeners to every custom single layout router anchor link
-        document.body.addEventListener('click', e => {
-            const targetLink = e.target.closest('.nav-link');
-            if (targetLink) {
-                e.preventDefault();
-                const newPath = targetLink.getAttribute('data-path');
-                window.history.pushState({}, '', newPath);
-                router();
-            }
-        });
-
-        // Toggle state rules component for FAQ layout section accordion items
-        document.body.addEventListener('click', e => {
-            if (e.target.classList.contains('faq-question')) {
-                e.target.parentElement.classList.toggle('active');
-            }
-        });
-
-        // Capture client window browser movement histories
-        window.addEventListener('popstate', router);
-        window.addEventListener('DOMContentLoaded', router);
-
-        // Formspree product-request modal
-        const orderModal = document.getElementById('order-modal');
-        const orderForm = document.getElementById('order-form');
-        const orderProduct = document.getElementById('order-product');
-        const orderProductField = document.getElementById('order-product-field');
-        const orderPriceField = document.getElementById('order-price-field');
-        const orderSubjectField = document.getElementById('order-subject-field');
-        const orderStatus = document.getElementById('order-status');
-
-        function openOrder(product, price) {
-            orderProduct.textContent = `You're requesting: ${product} — ${price}`;
-            orderProductField.value = product;
-            orderPriceField.value = price;
-            orderSubjectField.value = `Product request: ${product}`;
-            orderStatus.textContent = '';
-            orderModal.classList.add('open');
-            orderModal.setAttribute('aria-hidden', 'false');
-            document.getElementById('customer-name').focus();
-        }
-
-        function closeOrder() {
-            orderModal.classList.remove('open');
-            orderModal.setAttribute('aria-hidden', 'true');
-        }
-
-        document.querySelectorAll('.order-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                openOrder(button.dataset.product, button.dataset.price);
-            });
-        });
-
-        document.querySelector('.order-close').addEventListener('click', closeOrder);
-        document.querySelector('.order-cancel').addEventListener('click', closeOrder);
-
-        orderModal.addEventListener('click', e => {
-            if (e.target === orderModal) closeOrder();
-        });
-
-        // Submit without leaving the page, using Formspree's endpoint.
-        orderForm.addEventListener('submit', async e => {
-            e.preventDefault();
-            orderStatus.textContent = 'Sending request...';
+        async function loadQuote() {
+            const quoteElement = document.getElementById("quote");
 
             try {
-                const response = await fetch(orderForm.action, {
-                    method: 'POST',
-                    body: new FormData(orderForm),
-                    headers: { 'Accept': 'application/json' }
+                const response = await fetch("/api/quote", {
+                    method: "GET",
+                    cache: "no-store"
                 });
 
-                if (response.ok) {
-                    orderStatus.textContent = 'Request sent! We’ll contact you by email.';
-                    orderForm.reset();
-                    setTimeout(closeOrder, 1800);
-                } else {
-                    orderStatus.textContent = 'Something went wrong. Please try again.';
+                if (!response.ok) {
+                    throw new Error("Failed to load quote");
                 }
+
+                const data = await response.json();
+
+                quoteElement.textContent = data.quote || "Testing";
+                quoteElement.className = "";
             } catch (error) {
-                orderStatus.textContent = 'Could not send the request. Please check your connection.';
+                console.error(error);
+
+                quoteElement.textContent = "Unable to load the quote.";
+                quoteElement.className = "error";
             }
-        });
-
-    </script>
-
-    <!-- PWA: service worker registration + Install App button -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-            });
         }
 
-        let deferredInstallPrompt = null;
-        const installBtn = document.getElementById('install-btn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Chrome/Edge fire this when the site meets installability
-            // criteria (manifest + service worker + served over HTTPS).
-            e.preventDefault();
-            deferredInstallPrompt = e;
-            installBtn.style.display = 'inline-block';
-        });
-
-        installBtn.addEventListener('click', async () => {
-            if (!deferredInstallPrompt) return;
-            deferredInstallPrompt.prompt();
-            await deferredInstallPrompt.userChoice;
-            deferredInstallPrompt = null;
-            installBtn.style.display = 'none';
-        });
-
-        window.addEventListener('appinstalled', () => {
-            installBtn.style.display = 'none';
-        });
+        loadQuote();
     </script>
+
 </body>
 </html>
